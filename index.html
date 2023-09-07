@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accueil</title>
+</head>
+<body>
+    <h1>Liste de publications</h1>
+    <p>Nombre total de publications : {{ publications|length }}</p>
+
+    <h2>Filtrer par auteur :</h2>
+    <form action="/filter_by_author" method="post">
+        <select name="authors">
+            {% for author in authors %}
+            <option value="{{ author }}">{{ author }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Filtrer">
+    </form>
+
+    <h2>Publications :</h2>
+    <ul>
+        {% for publication in publications %}
+        <li>
+            <a href="/publication/{{ publication.id }}">{{ publication.title }}</a> - {{ publication.author }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Ajouter une publication :</h2>
+    <form action="/add_publication" method="post">
+        <label for="title">Titre :</label>
+        <input type="text" name="title" required><br>
+        <label for="author">Auteur :</label>
+        <input type="text" name="author" required><br>
+        <label for="content">Contenu :</label><br>
+        <textarea name="content" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Ajouter">
+    </form>
+</body>
+</html>
